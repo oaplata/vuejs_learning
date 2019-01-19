@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Todo | 01 vuejs - learning</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="app">
+    
+    <div class="row">
+      
+      <div class="col m4">
+        <div class="add-todo-form">
+          <form @submit.prevent="addTodo">
+            <div class="input-field">
+              <input id="todoname" type="text" v-model="todo.name">
+              <label for="todoname">Nombre</label>
+            </div>
+            <div class="input-field">
+              <textarea id="tododescription" class="materialize-textarea" v-model="todo.description"></textarea>
+              <label for="tododescription">Descripción</label>
+            </div>
+            <div class="input-field">
+              <textarea id="todonotes" class="materialize-textarea" v-model="todo.notes"></textarea>
+              <label for="todonotes">Notas</label>
+            </div>
+            <div class="input-field">
+              <input id="todoresponsable" type="text" v-model="todo.responsable">
+              <label for="todoresponsable">Responsable</label>
+            </div>
+            
+            <input class="waves-effect waves-light btn" type="submit" value="agregar todo" v-if="todoIsValid">
+          </form>
+        </div>
+      </div>
+      
+      <div class="col m8">
+        <div class="todo-list">
+          <ul>
+            <li v-for="(todo, index) in undone" :key="index">
+              <div class="card blue-grey darken-1 todo">
+                <div class="card-content white-text">
+                  <span class="card-title">
+                    <label class="todo-title" @click.stop.prevent="doneTodo(todo)">
+                      <input type="checkbox" class="filled-in" :checked="todo.done" />
+                      <span>{{ todo.name }}</span>
+                    </label>
+                  </span>
+                  <p>{{ todo.description }}</p>
+                  <span class="responsable">{{ todo.responsable }}</span>
+                  <div v-bind:class="{ notes: true, show: (todo.id === notes) }">
+                    <div>
+                      <hr> {{ todo.notes }}
+                    </div>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <a href="#" @click="setNotes(todo.id)" v-if="todo.notes">Notas</a>
+                  <a href="#" @click="removeTodo(index)">Eliminar</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <ul>
+              <li v-for="(todo, index) in done" :key="index">
+                <div class="card blue-grey darken-1 todo">
+                  <div class="card-content white-text">
+                    <span class="card-title">
+                      <label class="todo-title" @click.stop.prevent="doneTodo(todo)">
+                        <input type="checkbox" class="filled-in" :checked="todo.done" />
+                        <span>{{ todo.name }}</span>
+                      </label>
+                    </span>
+                    <p>{{ todo.description }}</p>
+                    <span class="responsable">{{ todo.responsable }}</span>
+                    <div v-bind:class="{ notes: true, show: (index === notes) }">
+                      <div>
+                        <hr> {{todo.notes}}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-action">
+                    <a href="#" @click="setNotes(index)" v-if="todo.notes">Notas</a>
+                    <a href="#" @click="removeTodo(index)">Eliminar</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

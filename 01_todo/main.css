@@ -1,0 +1,42 @@
+.todo-title input[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+  border: 2px solid #fff;
+}
+
+.todo-title input[type="checkbox"].filled-in:checked+span:not(.lever):after {
+  background: transparent;
+  border: 2px solid #fff;
+}
+
+.todo-title input[type="checkbox"]+span:not(.lever) {
+  font-size: 25px;
+}
+
+.todo .responsable {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.todo-title {
+  color: #fff;
+}
+
+.notes {
+  overflow: hidden;
+  height: 0;
+}
+
+.notes.show {
+  height: auto;
+}
+
+.notes div {
+  transform: translateY(-100%);
+}
+
+
+
+.notes.show div{
+  transform: translateY(0);
+  transition: all .4s;
+}
